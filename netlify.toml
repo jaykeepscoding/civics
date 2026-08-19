@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback — single page, but keeps deep links from 404ing.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
