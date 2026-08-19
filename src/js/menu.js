@@ -3,7 +3,9 @@ import { counts, settings, setSetting, session, setSession, resetProgress } from
 
 const $ = id => document.getElementById(id);
 
-export function initMenu({ onChange, onShuffle, onReset }) {
+const SHEET_MS = 220;   // keep in step with the sheet transition in menu.css
+
+export function initMenu({ onChange, onShuffle, onReset, onReplay }) {
   const sheet = $('sheet');
   const openBtn = $('openMenu');
   const closeBtn = $('closeMenu');
@@ -58,6 +60,13 @@ export function initMenu({ onChange, onShuffle, onReset }) {
   /* ---- actions ---- */
   $('shuffle').addEventListener('click', () => { onShuffle(); close(); });
 
+  // Same cards, same order — just play the drop again. Wait for the sheet to
+  // clear first, otherwise it covers the thing you asked to watch.
+  $('replay').addEventListener('click', () => {
+    close();
+    setTimeout(onReplay, SHEET_MS + 20);
+  });
+
   // Two-step confirm: destructive, and a mis-tap three weeks in would hurt.
   const resetBtn = $('reset');
   let armed = false;
@@ -93,7 +102,7 @@ export function initMenu({ onChange, onShuffle, onReset }) {
 
   function close() {
     sheet.classList.remove('open');
-    setTimeout(() => { sheet.hidden = true; }, 220);
+    setTimeout(() => { sheet.hidden = true; }, SHEET_MS);
     openBtn.focus();
     disarm();
   }

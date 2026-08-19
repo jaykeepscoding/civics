@@ -1,7 +1,7 @@
 import { BY_ID } from './deck.js';
 import { card as cardState } from './store.js';
 
-const VISIBLE = 4;          // rendered cards, not deck length
+const VISIBLE = 6;          // rendered cards, not deck length
 const STAGGER = 175;         // ms between drops
 const COMMIT = 0.30;        // fraction of card width to trigger a swipe
 const TAP_SLOP = 10;        // px of movement still counted as a tap

@@ -61,7 +61,9 @@ function advance() {
 const menu = initMenu({
   onChange: () => rebuild(),
   onShuffle: () => rebuild({ animate: true }),
-  onReset: () => rebuild({ animate: true })
+  onReset: () => rebuild({ animate: true }),
+  // Replay keeps ids and cursor, so the same cards fall again in the same order.
+  onReplay: () => draw({ animate: true })
 });
 
 /* ---------- keyboard ---------- */
