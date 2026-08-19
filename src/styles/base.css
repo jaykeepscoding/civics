@@ -1,0 +1,88 @@
+:root {
+  --grot: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* set by settings.js */
+  --scale: 1.3;
+
+  --paper: #fafafa;
+  --ink: #000;
+  --edge: rgba(0, 0, 0, .10);
+  --mute: rgba(0, 0, 0, .42);
+
+  --radius: 22px;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--grot);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+button { font-family: inherit; }
+
+/* ---------- burger bar ---------- */
+.bar {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  padding: 14px 0 calc(18px + env(safe-area-inset-bottom));
+}
+
+.burger {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 12px 20px;
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+
+.burger span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--ink);
+  opacity: .55;
+  border-radius: 2px;
+  transition: opacity .2s ease;
+}
+
+.burger:hover span { opacity: 1; }
+
+.empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 0 32px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--mute);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

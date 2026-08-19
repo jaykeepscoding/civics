@@ -1,0 +1,142 @@
+.stage {
+  flex: 1 1 auto;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: calc(18px + env(safe-area-inset-top)) 0 0;
+}
+
+.deck {
+  position: relative;
+  width: min(86vw, 340px);
+  height: min(64vh, 480px);
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .05), 0 12px 28px rgba(0, 0, 0, .06);
+  transform-origin: 50% 100%;
+  will-change: transform;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  overflow: hidden;
+}
+
+.card.revealed {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.prompt {
+  font-size: calc(16px * var(--scale));
+  line-height: 1.45;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  margin: 0;
+}
+
+/* "Name five" style hint for n_of questions */
+.count {
+  margin: 8px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .35;
+}
+
+.answers {
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.card.revealed .answers { opacity: 1; transform: none; }
+
+.answers li {
+  font-size: calc(16px * var(--scale));
+  line-height: 1.45;
+  font-weight: 400;
+  margin: 0 0 2px;
+}
+
+.answers li::before { content: "\2192\00a0"; opacity: .4; }
+
+/* placeholder / guidance text for the 8 fill-in questions */
+.answers li.note {
+  font-size: calc(13px * var(--scale));
+  opacity: .6;
+  font-style: italic;
+}
+.answers li.note::before { content: ""; }
+
+.more {
+  margin: 6px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  opacity: .4;
+}
+
+.meta {
+  position: absolute;
+  top: 26px;
+  right: 24px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  opacity: .28;
+  font-variant-numeric: tabular-nums;
+}
+
+.card.revealed .meta { opacity: .45; }
+
+.dot {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ink);
+  transition: background .2s ease, transform .2s ease;
+}
+
+.card.revealed .dot { background: var(--paper); transform: scale(.55); }
+
+/* miss counter — only shown once a card has been missed */
+.tally {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .32;
+}
+
+/* ---------- load animation ---------- */
+@keyframes drop {
+  from { transform: translateY(-118vh) rotate(var(--tilt)) scale(var(--rs)); opacity: 0; }
+  to   { transform: translateY(var(--ry)) rotate(0deg) scale(var(--rs)); opacity: 1; }
+}
+
+.card.drop {
+  animation: drop 450ms cubic-bezier(.22, 1.15, .36, 1) both;
+  animation-delay: var(--delay);
+}
