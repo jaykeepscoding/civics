@@ -131,12 +131,25 @@
 }
 
 /* ---------- load animation ---------- */
+/* Accelerate on the way down, overshoot the resting spot, then settle. The
+   per-keyframe timing functions matter more than the duration: a single
+   front-loaded curve reads as a slide, not a fall. */
 @keyframes drop {
-  from { transform: translateY(-118vh) rotate(var(--tilt)) scale(var(--rs)); opacity: 0; }
-  to   { transform: translateY(var(--ry)) rotate(0deg) scale(var(--rs)); opacity: 1; }
+  0% {
+    transform: translateY(-118vh) rotate(var(--tilt)) scale(var(--rs));
+    opacity: 0;
+    animation-timing-function: cubic-bezier(.55, .09, .68, .53);
+  }
+  62% {
+    transform: translateY(calc(var(--ry) + 10px)) rotate(calc(var(--tilt) * .15)) scale(var(--rs));
+    opacity: 1;
+    animation-timing-function: cubic-bezier(.3, 0, .3, 1);
+  }
+  80% { transform: translateY(calc(var(--ry) - 4px)) rotate(0deg) scale(var(--rs)); }
+  100% { transform: translateY(var(--ry)) rotate(0deg) scale(var(--rs)); opacity: 1; }
 }
 
 .card.drop {
-  animation: drop 450ms cubic-bezier(.22, 1.15, .36, 1) both;
+  animation: drop 700ms both;
   animation-delay: var(--delay);
 }
