@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['apple-touch-icon.png'],
+      includeAssets: ['twitter.svg', 'apple-touch-icon.png', 'apple-touch-icon-blue.png'],
       workbox: {
         // Cache the Google Fonts stylesheet + font files so the app works offline.
         runtimeCaching: [
